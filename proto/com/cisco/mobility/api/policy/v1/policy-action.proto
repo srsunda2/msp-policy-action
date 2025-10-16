@@ -28,10 +28,12 @@ message UpdateSubscriberPolicyActionRequest {
 }
 
 message UpdateSubscriberPolicyActionResponse {
+  // Unique Id of the UpdateSubscriberPolicyAction
+  string id =1;
   // The updated subscriber policy
-  SubscriberPolicy subscriber_policy = 1;
+  SubscriberPolicy subscriber_policy = 2;
   // The time the update was processed
-  google.protobuf.Timestamp update_time = 2;
+  google.protobuf.Timestamp update_time = 3;
   // Status of the update operation
   enum UpdateStatus {
     UPDATE_STATUS_UNSPECIFIED = 0;
@@ -47,7 +49,7 @@ message UpdateSubscriberPolicyActionResponse {
     // The zone provided is not valid.
     UPDATE_STATUS_INVALID_ZONE = 5;
   }
-  UpdateStatus status = 3;
+  UpdateStatus status = 4;
 }
 
 message SubscriberPolicy {
