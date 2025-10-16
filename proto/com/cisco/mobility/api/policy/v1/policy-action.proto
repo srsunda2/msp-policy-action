@@ -28,8 +28,6 @@ message UpdateSubscriberPolicyActionRequest {
 }
 
 message UpdateSubscriberPolicyActionResponse {
-  // Unique Id of the UpdateSubscriberPolicyAction
-  string id;
   // The updated subscriber policy
   SubscriberPolicy subscriber_policy = 1;
   // The time the update was processed
