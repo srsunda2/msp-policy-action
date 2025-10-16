@@ -1,0 +1,12 @@
+# buf.yaml
+version: v1
+name: buf.build/srsunda2/cisco-mobility-poc
+build:
+  excludes:
+    - vendor
+lint:
+  use:
+    - DEFAULT
+breaking:
+  use:
+    - FILE

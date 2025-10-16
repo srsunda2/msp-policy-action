@@ -1,0 +1,64 @@
+// Copyright (C) 2025 Cisco Systems, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+syntax = "proto3";
+
+package com.cisco.mobility.api.policy.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service SubscriberPolicyActionService {
+  rpc UpdateSubscriberPolicyAction(UpdateSubscriberPolicyActionRequest) returns (UpdateSubscriberPolicyActionResponse);
+}
+
+message UpdateSubscriberPolicyActionRequest {
+  // The subscriber policy to update
+  SubscriberPolicy subscriber_policy = 1;
+}
+
+message UpdateSubscriberPolicyActionResponse {
+  // Unique Id of the UpdateSubscriberPolicyAction
+  string id;
+  // The updated subscriber policy
+  SubscriberPolicy subscriber_policy = 1;
+  // The time the update was processed
+  google.protobuf.Timestamp update_time = 2;
+  // Status of the update operation
+  enum UpdateStatus {
+    UPDATE_STATUS_UNSPECIFIED = 0;
+    // The update was successful.
+    UPDATE_STATUS_OK = 1;
+    // There was an error processing the update. This error should be treated as temporary, and
+    // sending the message again may work.
+    UPDATE_STATUS_ERROR = 2;
+    // Policy action provided is invalid for the plan associated with the subscriber.
+    UPDATE_STATUS_INVALID_ACTION = 3;
+    // The IMSI provided does not exist.
+    UPDATE_STATUS_IMSI_NOT_FOUND = 4;
+    // The zone provided is not valid.
+    UPDATE_STATUS_INVALID_ZONE = 5;
+  }
+  UpdateStatus status = 3;
+}
+
+message SubscriberPolicy {
+  // IMSI of the subscriber
+  string imsi = 1;
+  // ICCID of the subscriber
+  optional string iccid = 2;
+  // Zone to be specified if the policy action is zone specific
+  optional string zone = 3;
+  // Policy action to be applied to the subscriber for either default or a specific zone
+  string policy_action = 4;
+}
