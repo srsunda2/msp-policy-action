@@ -14,7 +14,9 @@
 //
 syntax = "proto3";
 
-package com.cisco.mobility.api.policy.v1;
+package com.cisco.mobility.policy.v1;
+
+option java_package = "com.cisco.mobility.api.policy.v1";
 
 import "google/protobuf/timestamp.proto";
 
