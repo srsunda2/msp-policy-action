@@ -16,6 +16,7 @@ syntax = "proto3";
 
 package com.cisco.mobility.api.policy.v1;
 
+import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
 service SubscriberPolicyActionService {
@@ -28,28 +29,14 @@ message UpdateSubscriberPolicyActionRequest {
 }
 
 message UpdateSubscriberPolicyActionResponse {
-  // Unique Id of the UpdateSubscriberPolicyAction
-  string id =1;
+  // Unique Id to view the update request
+  string id = 1;
   // The updated subscriber policy
   SubscriberPolicy subscriber_policy = 2;
   // The time the update was processed
   google.protobuf.Timestamp update_time = 3;
   // Status of the update operation
-  enum UpdateStatus {
-    UPDATE_STATUS_UNSPECIFIED = 0;
-    // The update was successful.
-    UPDATE_STATUS_OK = 1;
-    // There was an error processing the update. This error should be treated as temporary, and
-    // sending the message again may work.
-    UPDATE_STATUS_ERROR = 2;
-    // Policy action provided is invalid for the plan associated with the subscriber.
-    UPDATE_STATUS_INVALID_ACTION = 3;
-    // The IMSI provided does not exist.
-    UPDATE_STATUS_IMSI_NOT_FOUND = 4;
-    // The zone provided is not valid.
-    UPDATE_STATUS_INVALID_ZONE = 5;
-  }
-  UpdateStatus status = 4;
+  SubscriberPolicyUpdateStatus status = 4;
 }
 
 message SubscriberPolicy {
@@ -61,4 +48,19 @@ message SubscriberPolicy {
   optional string zone = 3;
   // Policy action to be applied to the subscriber for either default or a specific zone
   string policy_action = 4;
+}
+
+enum SubscriberPolicyUpdateStatus {
+  UPDATE_STATUS_UNSPECIFIED = 0;
+  // The update was successful.
+  UPDATE_STATUS_OK = 1;
+  // There was an error processing the update. This error should be treated as temporary, and
+  // sending the message again may work.
+  UPDATE_STATUS_ERROR = 2;
+  // Policy action provided is invalid for the plan associated with the subscriber.
+  UPDATE_STATUS_INVALID_ACTION = 3;
+  // The IMSI provided does not exist.
+  UPDATE_STATUS_IMSI_NOT_FOUND = 4;
+  // The zone provided is not valid.
+  UPDATE_STATUS_INVALID_ZONE = 5;
 }
