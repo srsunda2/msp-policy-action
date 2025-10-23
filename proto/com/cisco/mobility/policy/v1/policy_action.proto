@@ -16,11 +16,12 @@ syntax = "proto3";
 
 package com.cisco.mobility.policy.v1;
 
-option java_package = "com.cisco.mobility.api.policy.v1";
+option java_package = "com.cisco.mobility.policy.api.v1";
 
 import "google/protobuf/timestamp.proto";
 
 service SubscriberPolicyActionService {
+  // api to update the policy action for a subscriber
   rpc UpdateSubscriberPolicyAction(UpdateSubscriberPolicyActionRequest) returns (UpdateSubscriberPolicyActionResponse);
 }
 
